@@ -1,0 +1,9 @@
+# Dependency directory
+node_modules/
+
+# Dotenv environment variables file
+.env
+
+# Lint output
+reports/
+
