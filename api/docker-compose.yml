@@ -1,5 +1,14 @@
 version: '3'
 services:
+  postgres:
+    image: postgres:10.4-alpine
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: 'health-diary'
+      POSTGRES_PASSWORD: 'health-diary'
+      POSTGRES_DB: 'health-diary'
+
   web:
     build: .
     volumes:
@@ -10,3 +19,7 @@ services:
     env_file:
       - .env
     command: bash -c "nodemon src/index.js"
+    links:
+      - postgres
+    depends_on:
+      - postgres
