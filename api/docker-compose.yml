@@ -1,0 +1,12 @@
+version: '3'
+services:
+  web:
+    build: .
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    command: bash -c "nodemon src/index.js"
