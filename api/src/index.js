@@ -7,8 +7,8 @@ const middlewares = require('./middlewares')
 
 middlewares(app)
 
-const port = process.env.PORT
+const { server } = require('./configs')
 
-app.listen(port, () => {
-  console.log(`App listening on port ${port}`)
+app.listen(server.port, () => {
+  console.log(`App listening on port ${server.port}`)
 })
