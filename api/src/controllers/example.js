@@ -1,4 +1,7 @@
-const { show: showExample } = require('./services/example')
+const {
+  show: showExample,
+  showLogged: showExampleLogged,
+} = require('./services/example')
 
 const show = (req, res) => {
   showExample()
@@ -7,4 +10,14 @@ const show = (req, res) => {
     })
 }
 
-module.exports = { show }
+const showLogged = (req, res) => {
+  showExampleLogged(req.user)
+    .then((example) => {
+      res.json(example)
+    })
+}
+
+module.exports = {
+  show,
+  showLogged,
+}
