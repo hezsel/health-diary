@@ -3,5 +3,13 @@ const show = async () => {
     example: 'hello there',
   }
 }
+const showLogged = async (user) => {
+  return {
+    example: `hello there ${user.name}`,
+  }
+}
 
-module.exports = { show }
+module.exports = {
+  show,
+  showLogged,
+}
