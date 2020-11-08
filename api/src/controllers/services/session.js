@@ -4,6 +4,7 @@ const {
   User,
   Session,
 } = require('../../database')
+const { BadRequestError } = require('../../errors')
 
 const get = async (authorization, user) => {
   const token = authorization.split(' ')[1]
@@ -48,7 +49,7 @@ const create = async ({
     token,
   })
 
-  return { token, user }
+  return { token, user: user.formatted }
 }
 
 const getByToken = async (token) => {
