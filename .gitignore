@@ -1,0 +1,25 @@
+# Dependency directory
+app/node_modules/
+api/node_modules/
+
+# Dotenv environment variables file
+**/.env
+
+# Lint output
+api/reports/
+
+app/.pnp
+app/pnp.js
+
+# testing
+app/coverage
+
+# production
+app/build
+
+# misc
+**/.DS_Store
+
+app/npm-debug.log*
+app/yarn-debug.log*
+app/yarn-error.log*
