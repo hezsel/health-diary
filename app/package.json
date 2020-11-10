@@ -1,7 +1,10 @@
 {
   "name": "apprp",
   "version": "0.1.0",
-  "private": true,
+  "engines": {
+    "node": "10.15.3",
+    "npm": "6.4.1"
+  },
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@testing-library/jest-dom": "^4.2.4",
@@ -17,7 +20,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deployToHeroku": "cd ../ && git subtree push --prefix app heroku-app-health-diary main || true"
   },
   "eslintConfig": {
     "extends": "react-app"

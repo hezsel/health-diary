@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node src/index.js",
     "db:migrate": "sequelize db:migrate",
-    "db:seed:all": "sequelize db:seed:all"
+    "db:seed:all": "sequelize db:seed:all",
+    "deployToHeroku": "cd ../ && git subtree push --prefix api heroku-api-health-diary main || true"
   },
   "author": "hezsel",
   "license": "ISC",
