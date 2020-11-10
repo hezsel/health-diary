@@ -22,7 +22,7 @@ const Login = () => {
   const login = (credentials) => {
     axios({
       method: 'post',
-      url: 'http://localhost:8000/session',
+      url: `${process.env.REACT_APP_ROOT_API}/session`,
       data: credentials,
     })
       .then((res) => {

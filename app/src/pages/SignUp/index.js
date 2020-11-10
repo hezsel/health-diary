@@ -32,7 +32,7 @@ const SignUp = () => {
     }
     axios({
       method: 'post',
-      url: 'http://localhost:8000/user',
+      url: `${process.env.REACT_APP_ROOT_API}/user`,
       data: {
         name,
         email,
