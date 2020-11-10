@@ -20,11 +20,5 @@ module.exports = Joi.object().keys({
     ).required(),
     logging: Joi.boolean().required(),
     url: Joi.string().optional(),
-  })
-    .xor('username', 'url')
-    .xor('password', 'url')
-    .xor('database', 'url')
-    .xor('host', 'url')
-    .xor('port', 'url')
-    .required(),
+  }).required(),
 }).required()
