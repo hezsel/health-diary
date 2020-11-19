@@ -1,4 +1,3 @@
-const Joi = require('joi')
 const configSchema = require('./schema')
 const parseEnvironment = require('./parseEnvironment')
 
