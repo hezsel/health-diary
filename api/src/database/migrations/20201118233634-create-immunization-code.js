@@ -5,7 +5,15 @@ module.exports = {
       primaryKey: true,
       allowNull: false,
     },
+    code: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
     name: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    version: {
       type: Sequelize.STRING,
       allowNull: false,
     },

@@ -10,7 +10,15 @@ module.exports = {
         allowNull: false,
         defaultValue: generateId('immu_code'),
       },
+      code: {
+        type: STRING,
+        allowNull: false,
+      },
       name: {
+        type: STRING,
+        allowNull: false,
+      },
+      version: {
         type: STRING,
         allowNull: false,
       },
