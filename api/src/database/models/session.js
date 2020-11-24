@@ -1,5 +1,5 @@
 const { STRING } = require('sequelize')
-const generateId = require('../../utils/generateId')
+const generateId = require('../utils/generateId')
 
 module.exports = {
   create(sequelize) {
