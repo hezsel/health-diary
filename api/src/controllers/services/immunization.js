@@ -1,6 +1,6 @@
 const { Immunization } = require('../../database')
 
-const create = async (userId, attributes) => Immunization.create({
+const create = (userId, attributes) => Immunization.create({
   ...attributes,
   userId,
 }).then((immunization) => immunization.formatted)
