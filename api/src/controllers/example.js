@@ -1,17 +1,14 @@
-const {
-  show: showExample,
-  showLogged: showExampleLogged,
-} = require('./services/example')
+const example = require('./services/example')
 
 const show = (req, res) => {
-  showExample()
+  example.show()
     .then((example) => {
       res.json(example)
     })
 }
 
 const showLogged = (req, res) => {
-  showExampleLogged(req.user)
+  example.showLogged(req.user)
     .then((example) => {
       res.json(example)
     })

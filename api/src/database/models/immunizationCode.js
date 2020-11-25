@@ -3,23 +3,26 @@ const generateId = require('../utils/generateId')
 
 module.exports = {
   create(sequelize) {
-    const User = sequelize.define('User', {
+    const ImmunizationCode = sequelize.define('ImmunizationCode', {
       id: {
         type: STRING,
         primaryKey: true,
         allowNull: false,
-        defaultValue: generateId('user'),
+        defaultValue: generateId('immu_code'),
+      },
+      code: {
+        type: STRING,
+        allowNull: false,
       },
       name: {
         type: STRING,
         allowNull: false,
       },
-      email: {
+      version: {
         type: STRING,
         allowNull: false,
-        unique: true,
       },
-      password: {
+      url: {
         type: STRING,
         allowNull: false,
       },
@@ -31,12 +34,20 @@ module.exports = {
           return {
             id: this.get('id'),
             name: this.get('name'),
-            email: this.get('email'),
+            url: this.get('url'),
           }
         },
       },
     })
 
-    return User
+    return ImmunizationCode
+  },
+  associate(ImmunizationCode, {
+    Immunization,
+  }) {
+    ImmunizationCode.hasMany(Immunization, {
+      foreignKey: 'immunizationCodeId',
+      as: 'immunizations',
+    })
   },
 }
