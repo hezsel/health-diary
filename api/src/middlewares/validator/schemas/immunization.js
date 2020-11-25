@@ -11,6 +11,7 @@ const immunization = {
     lotNumber: Joi.string().optional().allow(null),
     expirationDate: Joi.date().format('YYYY-MM-DD').optional().allow(null),
     doseQuantity: Joi.string().optional().allow(null),
+    observation: Joi.string().optional().allow(null),
   }),
   error: 'invalid_immunization',
 }

@@ -1,4 +1,4 @@
-const { Immunization } = require('../../database')
+const { Immunization, ImmunizationCode } = require('../../database')
 
 const create = (userId, attributes) => Immunization.create({
   ...attributes,
@@ -18,6 +18,30 @@ const remove = (userId, id) => Immunization.destroy({
 
 const list = (userId) => Immunization.findAll({
   where: { userId },
+  attributes: [
+    'id',
+    'date',
+    'location',
+    'lotNumber',
+    'expirationDate',
+    'doseQuantity',
+    'observation',
+    'createdAt',
+  ],
+  include: [
+    {
+      model: ImmunizationCode,
+      as: 'immunizationCode',
+      required: true,
+      attributes: [
+        'id',
+        'name',
+        'code',
+        'version',
+        'url',
+      ],
+    },
+  ],
 })
 
 module.exports = {

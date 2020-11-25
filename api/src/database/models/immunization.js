@@ -46,6 +46,10 @@ module.exports = {
         type: STRING,
         allowNull: true,
       },
+      observation: {
+        type: STRING,
+        allowNull: true,
+      },
     }, {
       timestamps: true,
       paranoid: true,
@@ -60,6 +64,7 @@ module.exports = {
             lotNumber: this.get('lotNumber'),
             expirationDate: this.get('expirationDate'),
             doseQuantity: this.get('doseQuantity'),
+            observation: this.get('observation'),
           }
         },
       },
