@@ -1,11 +1,15 @@
 const userSchema = require('./user')
-const immunizationSchema = require('./immunization')
 const sessionSchema = require('./session')
+const immunizationSchema = require('./immunization')
 const immunizationCodeSchema = require('./immunizationCode')
+const diagnosticSchema = require('./diagnostic')
+const diagnosticCodeSchema = require('./diagnosticCode')
 
 module.exports = {
   userSchema,
-  immunizationSchema,
   sessionSchema,
+  immunizationSchema,
   immunizationCodeSchema,
+  diagnosticSchema,
+  diagnosticCodeSchema,
 }

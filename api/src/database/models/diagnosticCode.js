@@ -3,12 +3,12 @@ const generateId = require('../utils/generateId')
 
 module.exports = {
   create(sequelize) {
-    const ImmunizationCode = sequelize.define('ImmunizationCode', {
+    const DiagnosticCode = sequelize.define('DiagnosticCode', {
       id: {
         type: STRING,
         primaryKey: true,
         allowNull: false,
-        defaultValue: generateId('immu_code'),
+        defaultValue: generateId('diag_code'),
       },
       code: {
         type: STRING,
@@ -33,8 +33,8 @@ module.exports = {
         formatted() {
           return {
             id: this.get('id'),
-            code: this.get('code'),
             name: this.get('name'),
+            code: this.get('code'),
             version: this.get('version'),
             url: this.get('url'),
           }
@@ -42,6 +42,6 @@ module.exports = {
       },
     })
 
-    return ImmunizationCode
+    return DiagnosticCode
   },
 }

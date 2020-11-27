@@ -4,7 +4,7 @@ const filters = {
   validation: Joi.object().keys({
     name: Joi.string().optional(),
   }),
-  error: 'invalid_immunization_code_filters',
+  error: 'invalid_diagnostic_code_filters',
 }
 
 const schemas = {
