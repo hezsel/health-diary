@@ -1,0 +1,45 @@
+.list{
+    color: rgba(204, 16, 16, 0.774);
+    width: 750px;
+    margin-left: 40px;
+    height: 60px;
+    background-color: rgb(228, 227, 227);
+    border-radius: 5px;
+}
+.list p{
+    padding-left: 30px;
+    position: relative;
+    transition: ease-in-out;
+}
+.list p input{
+    background-color: transparent;
+    border: 0;
+    color: rgb(0, 0, 0);
+    font-size: 20px;
+}
+.list p input:focus{
+    outline: none;
+}
+.list p span{
+    position: absolute;
+    right: 10px;
+}
+.faicons{
+    margin: 17px 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+.itemsAnim-enter{
+    opacity: 0.01;
+}
+.itemsAnim-enter .itemsAnim-enter-active{
+    opacity: 1;
+    transition: opacity 300ms ease-in
+}
+.itemsAnim-leave{
+    opacity: 1;
+}
+.itemsAnim-leave .itemsAnim-leave-active{
+    opacity: 0.01;
+    transition: opacity 300ms ease-in
+}

@@ -70,7 +70,7 @@ const Login = () => {
               >
                 Entrar
               </Button>
-              <Link style={link} to='/SignUp'>
+              <Link style={link} to='/home'>
                 <Button
                   style={link}
                   variant='outlined'
@@ -88,7 +88,6 @@ const Login = () => {
             width='100%'
             display='block'
             height='99%'
-            padding='100px'
           />
         </RightCard>
       </CardShadow>

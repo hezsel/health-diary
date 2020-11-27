@@ -1,8 +1,16 @@
 import styled from 'styled-components'
 
+export const SideBar = styled.div`
+height: 100vh;
+display: block;
+float: left;
+`
+
 export const Page = styled.div`
-    padding-Top: 50px;
-    padding-Left: 120px;
-    padding-Right: 120px;
-    padding-Bottom: 50px;
+  padding-left: 64px;
+  font-Weight: bold;
+  font-Size: 40px;
+  align-Items: center;
+  justify-Content: center;
+  display: inline-block;
 `

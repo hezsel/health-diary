@@ -25,7 +25,7 @@ export const CamposRegistro = styled.div`
 `
 
 export const RightCard = styled.div`
-  width: 55%;
+  width: 45%;
   display: inline-block;
   height: 90vh;
   padding-Left: 20px;
@@ -33,7 +33,7 @@ export const RightCard = styled.div`
 
 export const LeftCard = styled.div`
   background: linear-gradient(to top,rgba(105,102,246,1),rgba(105,102,246,0.75));
-  width: 40%;
+  width: 50%;
   height: 90vh;
   display: block;
   float: left;
