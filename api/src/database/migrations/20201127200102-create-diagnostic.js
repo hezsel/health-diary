@@ -1,15 +1,15 @@
 module.exports = {
-  up: (queryInterface, Sequelize) => queryInterface.createTable('Immunization', {
+  up: (queryInterface, Sequelize) => queryInterface.createTable('Diagnostic', {
     id: {
       type: Sequelize.STRING,
       primaryKey: true,
       allowNull: false,
     },
-    immunization_code_id: {
+    diagnostic_code_id: {
       type: Sequelize.STRING,
       allowNull: false,
       references: {
-        model: 'ImmunizationCode',
+        model: 'DiagnosticCode',
         key: 'id',
       },
     },
@@ -25,19 +25,15 @@ module.exports = {
       type: Sequelize.DATE,
       allowNull: false,
     },
-    location: {
+    result: {
       type: Sequelize.STRING,
       allowNull: true,
     },
-    lot_number: {
+    performer: {
       type: Sequelize.STRING,
       allowNull: true,
     },
-    expiration_date: {
-      type: Sequelize.DATE,
-      allowNull: true,
-    },
-    dose_quantity: {
+    observation: {
       type: Sequelize.STRING,
       allowNull: true,
     },
@@ -54,6 +50,6 @@ module.exports = {
     },
   }),
   down: (queryInterface) => {
-    queryInterface.dropTable('Immunization')
+    queryInterface.dropTable('Diagnostic')
   },
 }

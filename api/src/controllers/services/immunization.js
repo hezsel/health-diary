@@ -26,6 +26,7 @@ const list = (userId) => Immunization.findAll({
     'expirationDate',
     'doseQuantity',
     'observation',
+    'updatedAt',
     'createdAt',
   ],
   include: [
