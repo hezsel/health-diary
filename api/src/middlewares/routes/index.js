@@ -11,9 +11,9 @@ const routes = (app) => {
   app.use('/user', user)
   app.use('/session', session)
   app.use('/immunization', immunization)
-  app.use('/immunizationCode', immunizationCode)
+  app.use('/immunization_code', immunizationCode)
   app.use('/diagnostic', diagnostic)
-  app.use('/diagnosticCode', diagnosticCode)
+  app.use('/diagnostic_code', diagnosticCode)
 }
 
 module.exports = routes

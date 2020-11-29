@@ -18,7 +18,7 @@ const router = express.Router()
 router
   .get('/', isAuthenticated, list)
   .post('/', isAuthenticated, validator(createSchema, 'body'), create)
-  .put('/', isAuthenticated, validator(updateSchema, 'body'), update)
-  .delete('/', isAuthenticated, remove)
+  .put('/:id', isAuthenticated, validator(updateSchema, 'body'), update)
+  .delete('/:id', isAuthenticated, remove)
 
 module.exports = router

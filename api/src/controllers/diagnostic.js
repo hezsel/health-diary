@@ -1,7 +1,6 @@
 const diagnostic = require('./services/diagnostic')
 
 const create = (req, res) => {
-  console.log(diagnostic)
   diagnostic.create(req.user.id, req.body)
     .then((diagnostic) => {
       res.json({ diagnostic })
