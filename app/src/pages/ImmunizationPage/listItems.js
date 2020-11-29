@@ -12,12 +12,13 @@ import {
   Delete as DeleteIcon,
   Edit as EditIcon,
 } from '@material-ui/icons'
+import { head, join, pipe, reverse, split } from 'ramda'
 
 import api from '../../services'
 
-const formatDate = (isoString) => {
-  if (!isoString) return ''
-  return isoString.split('T')[0].split('-').reverse().join('/')
+const formatDate = isoDateString => {
+  if (!isoDateString) return ''
+  return pipe(split('T'), head, split('-'), reverse, join('/'))(isoDateString)
 }
 
 const ListItems = ({
@@ -26,7 +27,7 @@ const ListItems = ({
   setEdit,
 }) => {
 
-  const deleteItem = (id) => {
+  const deleteItem = id => {
     api.immunization.remove(id).then(() => {
       alert('Vacina deletada com sucesso!')
       updateList()

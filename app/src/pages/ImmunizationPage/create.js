@@ -18,7 +18,7 @@ import {
   ViewHeadline as ViewHeadlineIcon,
   Close as CloseIcon,
 } from '@material-ui/icons'
-import { reject, anyPass, isEmpty, isNil } from 'ramda'
+import { head, pipe, split } from 'ramda'
 
 import api from '../../services'
 
@@ -30,11 +30,15 @@ const CreatePage = styled.div`
 `
 
 const formatDate = (date) => {
-  if (!date) return ''
-  return date.toISOString().split('T')[0]
+  if (!date) return null
+  return pipe(split('T'), head)(date.toISOString())
 }
 
-const removeNotUsedAttributes = reject(anyPass([isNil, isEmpty]))
+const getFormatedDate = (isoDateString) => {
+  if (!isoDateString) return null
+  const now = new Date()
+  return new Date(new Date(isoDateString).getTime() + now.getTimezoneOffset() * 60000)
+}
 
 const ListItems = ({
   modalStatus,
@@ -57,9 +61,10 @@ const ListItems = ({
   }
   useEffect(() => {
     updateCodeList()
-    if (!isEmpty(editing)) {
-      setDate(new Date(editing.date))
-      setExpirationDate(new Date(editing.expirationDate))
+    if (editing.id) {
+      setImmunizationCodeId(editing.immunizationCode.id)
+      setDate(getFormatedDate(editing.date))
+      setExpirationDate(getFormatedDate(editing.expirationDate))
       setLocation(editing.location)
       setLotNumber(editing.lotNumber)
       setDoseQuantity(editing.doseQuantity)
@@ -95,20 +100,20 @@ const ListItems = ({
   }
 
   const saveItem = () => {
-    const data = removeNotUsedAttributes({
+    const data = {
       immunizationCodeId,
       date: formatDate(date),
       expirationDate: formatDate(expirationDate),
-      location,
-      lotNumber,
-      doseQuantity,
-      observation,
-    })
+      location: location || null,
+      lotNumber: lotNumber || null,
+      doseQuantity: doseQuantity || null,
+      observation: observation || null,
+    }
     if (editing.id) {
       updateItem(editing.id, data)
       return
     }
-    createItem(date)
+    createItem(data)
   }
 
   return (<Dialog
