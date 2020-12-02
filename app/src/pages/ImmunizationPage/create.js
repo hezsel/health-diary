@@ -40,13 +40,13 @@ const getFormatedDate = (isoDateString) => {
   return new Date(new Date(isoDateString).getTime() + now.getTimezoneOffset() * 60000)
 }
 
-const ListItems = ({
+const Create = ({
   modalStatus,
   updateList,
   setModalStatus,
   editing,
 }) => {
-  const [immunizationCodeId, setImmunizationCodeId] = useState('immu_code_ckhwkga9n0000x0ucaolme544')
+  const [immunizationCodeId, setImmunizationCodeId] = useState(null)
   const [date, setDate] = useState(new Date())
   const [expirationDate, setExpirationDate] = useState(null)
   const [location, setLocation] = useState(null)
@@ -279,4 +279,4 @@ const ListItems = ({
   </Dialog>)
 }
 
-export default ListItems
+export default Create

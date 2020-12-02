@@ -3,6 +3,7 @@ import NavBar from '../../components/navBar'
 import styled from 'styled-components'
 import ListItems from './listItems'
 import CreateImmunization from './create'
+import FilterImmunization from './filter'
 import { useHistory } from "react-router-dom"
 import { isLoggedIn } from '../../services/user'
 import api from '../../services'
@@ -13,10 +14,15 @@ import {
 } from '@material-ui/icons'
 
 const Page = styled.div`
-  padding-Top: 50px;
-  padding-Left: 120px;
-  padding-Right: 120px;
-  padding-Bottom: 50px;
+  padding-top: 50px;
+  padding-left: 120px;
+  padding-right: 60px;
+  padding-bottom: 50px;
+  @media (max-width: 500px) {
+    padding-top: 5px;
+    padding-right: 5px;
+    padding-left: 70px;
+  }  
 `
 
 const ImmunizationPage = () => {
@@ -24,12 +30,14 @@ const ImmunizationPage = () => {
   isLoggedIn(history)
 
   const [createModalStatus, setCreateModalStatus] = useState(false)
+  const [filterModalStatus, setFilterModalStatus] = useState(false)
   const [immunizationList, setImmunizationList] = useState([])
   const [editing, setEditing] = useState({})
 
-  const updateList = async () => {
+  const updateList = async (filters = {}) => {
     setCreateModalStatus(false)
-    setImmunizationList(await api.immunization.list())
+    setFilterModalStatus(false)
+    setImmunizationList(await api.immunization.list(filters))
   }
 
   let modalKey = new Date().valueOf()
@@ -47,13 +55,14 @@ const ImmunizationPage = () => {
     <NavBar />
     <Page>
       <Grid container>
-        <Grid item xs={10}>
+        <Grid item xs={12} sm={6}>
           <h1>Suas Vacinas:</h1>
         </Grid>
         <Grid
           container
           item
-          xs={2}
+          xs={12}
+          sm={6}
           direction="row"
           alignItems="center"
           justify="flex-end"
@@ -62,7 +71,7 @@ const ImmunizationPage = () => {
             style={{ marginRight: 10 }}
             size="medium"
             aria-label="fitler"
-            disabled
+            onClick={() => setFilterModalStatus(true)}
           >
             <FilterListIcon />
           </Fab>
@@ -92,6 +101,12 @@ const ImmunizationPage = () => {
         setModalStatus={setCreateModalStatus}
         updateList={updateList}
         editing={editing}
+      />
+      <FilterImmunization
+        key={modalKey + 1}
+        modalStatus={filterModalStatus}
+        setModalStatus={setFilterModalStatus}
+        updateList={updateList}
       />
     </Page>
   </>)

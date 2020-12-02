@@ -5,7 +5,7 @@ export const list = async (filters = {}) => {
     const res = await axios([], {
       method: 'get',
       url: '/immunization',
-      data: filters,
+      params: filters,
     })
     return res.data.immunizations
   } catch (err) {
