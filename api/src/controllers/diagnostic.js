@@ -22,7 +22,7 @@ const remove = (req, res) => {
 }
 
 const list = (req, res) => {
-  diagnostic.list(req.user.id)
+  diagnostic.list(req.user.id, req.query)
     .then((diagnostics) => {
       res.json({ diagnostics })
     })

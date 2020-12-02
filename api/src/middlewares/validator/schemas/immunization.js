@@ -16,9 +16,18 @@ const immunization = {
   error: 'invalid_immunization',
 }
 
+const filters = {
+  validation: Joi.object().keys({
+    immunizationCodeId: Joi.string().optional(),
+    date: Joi.date().format('YYYY-MM-DD').optional(),
+  }),
+  error: 'invalid_immunization_filters',
+}
+
 const schemas = {
   create: immunization,
   update: immunization,
+  filters,
 }
 
 module.exports = schemas

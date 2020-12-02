@@ -14,9 +14,18 @@ const diagnostic = {
   error: 'invalid_diagnostic',
 }
 
+const filters = {
+  validation: Joi.object().keys({
+    diagnosticCodeId: Joi.string().optional(),
+    date: Joi.date().format('YYYY-MM-DD').optional(),
+  }),
+  error: 'invalid_diagnostic_filters',
+}
+
 const schemas = {
   create: diagnostic,
   update: diagnostic,
+  filters,
 }
 
 module.exports = schemas

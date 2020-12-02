@@ -11,12 +11,13 @@ const {
   diagnosticSchema: {
     create: createSchema,
     update: updateSchema,
+    filters: filtersSchema,
   },
 } = require('../validator/schemas')
 const router = express.Router()
 
 router
-  .get('/', isAuthenticated, list)
+  .get('/', isAuthenticated, validator(filtersSchema, 'query'), list)
   .post('/', isAuthenticated, validator(createSchema, 'body'), create)
   .put('/:id', isAuthenticated, validator(updateSchema, 'body'), update)
   .delete('/:id', isAuthenticated, remove)
