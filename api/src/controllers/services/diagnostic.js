@@ -1,4 +1,5 @@
 const { Diagnostic, DiagnosticCode } = require('../../database')
+const { generateWhereILike } = require('../../database/utils/filters')
 
 const create = (userId, attributes) => Diagnostic.create({
   ...attributes,
@@ -16,8 +17,11 @@ const remove = (userId, id) => Diagnostic.destroy({
   where: { id, userId },
 })
 
-const list = (userId) => Diagnostic.findAll({
-  where: { userId },
+const list = (userId, filters) => Diagnostic.findAll({
+  where: {
+    userId,
+    ...generateWhereILike(filters),
+  },
   attributes: [
     'id',
     'date',

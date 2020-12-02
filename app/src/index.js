@@ -2,19 +2,20 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 import * as serviceWorker from './serviceWorker'
-import { BrowserRouter, Route, Redirect } from 'react-router-dom'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import { ThemeProvider } from '@material-ui/styles'
 import { createMuiTheme } from '@material-ui/core/styles'
 
-import Home from './pages/Home/index'
-import Login from './pages/Login/index'
-import SignUp from './pages/SignUp/index'
+import Home from './pages/Home'
+import Login from './pages/Login'
+import SignUp from './pages/SignUp'
+import ImmunizationPage from './pages/ImmunizationPage'
 
 const theme = createMuiTheme({
   palette: {
-    type: 'dark',
+    type: 'light',
     primary: {
-      main: '#3F3D93',
+      main: '#6966f6',
     },
     secondary: {
       main: '#11cb5f',
@@ -25,10 +26,12 @@ const theme = createMuiTheme({
 ReactDOM.render(
   <ThemeProvider theme={theme}>
     <BrowserRouter>
-      <Route path="/Home" component={Home} />
-      <Route path="/SignUp" component={SignUp} />
-      <Route path="/Login" component={Login} />
-      <Redirect to={"/Login"} />
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route path="/Register" component={SignUp} />
+        <Route path="/Login" component={Login} />
+        <Route path="/Immunization" component={ImmunizationPage} />
+      </Switch>
     </BrowserRouter>
   </ThemeProvider>,
   document.getElementById('root'),

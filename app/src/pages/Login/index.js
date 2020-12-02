@@ -1,13 +1,30 @@
 import React, { useState } from 'react'
-import axios from 'axios'
 import { Page, CardShadow, LeftCard, Title, Fields, RightCard, ActionArea } from './styles'
 import { Button, TextField } from '@material-ui/core'
 import doctors from '../../img/doctors.svg'
 import { useHistory } from "react-router-dom"
 import { Link } from 'react-router-dom'
+import api from '../../services'
+
+import { ThemeProvider } from '@material-ui/styles'
+import { createMuiTheme } from '@material-ui/core/styles'
+
+const theme = createMuiTheme({
+  palette: {
+    type: 'dark',
+    primary: {
+      main: '#6966f6',
+    },
+    secondary: {
+      main: '#11cb5f',
+    },
+  },
+})
 
 const Login = () => {
   const history = useHistory()
+
+  api.user.isLoggedIn(history)
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -19,80 +36,74 @@ const Login = () => {
     'textDecoration': 'none',
   }
 
-  const login = (credentials) => {
-    axios({
-      method: 'post',
-      url: `${process.env.REACT_APP_ROOT_API}/session`,
-      data: credentials,
-    })
-      .then((res) => {
-        localStorage.setItem('session', JSON.stringify(res.data))
-        history.push("/Home")
-      })
-      .catch(() => {
-        alert('Credenciais inválidas')
-      })
+  const handleKeyPress = ({ key }) => {
+    if (key !== 'Enter') return
+    api.user.login(history, { email, password })
   }
 
   return (
-    <Page>
-      <CardShadow>
-        <LeftCard>
-          <Title>Health Diary</Title>
-          <Fields>
-            <TextField
-              style={{ color: 'white' }}
-              margin='normal'
-              variant='outlined'
-              fullWidth
-              label='Email'
-              type='email'
-              onChange={(event) => setEmail(event.target.value)}
-            />
-            <TextField
-              variant='outlined'
-              margin='normal'
-              fullWidth
-              label='Senha'
-              type='password'
-              onChange={(event) => setPassword(event.target.value)}
-            />
-            <ActionArea>
-              <Button
-                style={link}
-                variant='contained'
-                size='large'
-                color="secondary"
-                onClick={() => login({
-                  email,
-                  password,
-                })}
-              >
-                Entrar
-              </Button>
-              <Link style={link} to='/SignUp'>
+    <ThemeProvider theme={theme}>
+      <Page>
+        <CardShadow>
+          <LeftCard>
+            <Title>Health Diary</Title>
+            <Fields>
+              <TextField
+                style={{ color: 'white' }}
+                margin='normal'
+                variant='outlined'
+                fullWidth
+                label='Email'
+                type='email'
+                onChange={(event) => setEmail(event.target.value)}
+                onKeyPress={handleKeyPress}
+              />
+              <TextField
+                variant='outlined'
+                margin='normal'
+                fullWidth
+                label='Senha'
+                type='password'
+                onChange={(event) => setPassword(event.target.value)}
+                onKeyPress={handleKeyPress}
+              />
+              <ActionArea>
                 <Button
                   style={link}
-                  variant='outlined'
+                  variant='contained'
                   size='large'
-                  color="primary"
+                  color="secondary"
+                  onClick={() => api.user.login(history, {
+                    email,
+                    password,
+                  })}
                 >
-                  Cadastrar-se
+                  Entrar
               </Button>
-              </Link>
-            </ActionArea>
-          </Fields>
-        </LeftCard>
-        <RightCard>
-          <img src={doctors} alt="doctors"
-            width='100%'
-            display='block'
-            height='99%'
-            padding='100px'
-          />
-        </RightCard>
-      </CardShadow>
-    </Page>
+                <Link style={link} to='/Register'>
+                  <Button
+                    style={link}
+                    variant='contained'
+                    size='large'
+                    color="primary"
+                  >
+                    Cadastrar-se
+              </Button>
+                </Link>
+              </ActionArea>
+            </Fields>
+          </LeftCard>
+          <RightCard>
+            <img src={doctors} alt="doctors"
+              width='100%'
+              display='block'
+              height='99%'
+              padding='100px'
+            />
+          </RightCard>
+        </CardShadow>
+      </Page>
+    </ThemeProvider>
   )
 }
 

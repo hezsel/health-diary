@@ -22,7 +22,7 @@ const remove = (req, res) => {
 }
 
 const list = (req, res) => {
-  immunization.list(req.user.id)
+  immunization.list(req.user.id, req.query)
     .then((immunizations) => {
       res.json({ immunizations })
     })

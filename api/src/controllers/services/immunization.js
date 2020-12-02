@@ -1,4 +1,5 @@
 const { Immunization, ImmunizationCode } = require('../../database')
+const { generateWhereILike } = require('../../database/utils/filters')
 
 const create = (userId, attributes) => Immunization.create({
   ...attributes,
@@ -16,8 +17,11 @@ const remove = (userId, id) => Immunization.destroy({
   where: { id, userId },
 })
 
-const list = (userId) => Immunization.findAll({
-  where: { userId },
+const list = (userId, filters) => Immunization.findAll({
+  where: {
+    userId,
+    ...generateWhereILike(filters),
+  },
   attributes: [
     'id',
     'date',
