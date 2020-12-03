@@ -9,8 +9,8 @@ const create = (req, res) => {
 
 const update = (req, res) => {
   immunization.update(req.user.id, req.params.id, req.body)
-    .then((immunization) => {
-      res.json({ immunization })
+    .then(() => {
+      res.json('success')
     })
 }
 

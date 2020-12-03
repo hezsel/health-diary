@@ -9,8 +9,8 @@ const create = (req, res) => {
 
 const update = (req, res) => {
   diagnostic.update(req.user.id, req.params.id, req.body)
-    .then((diagnostic) => {
-      res.json({ diagnostic })
+    .then(() => {
+      res.json('success')
     })
 }
 

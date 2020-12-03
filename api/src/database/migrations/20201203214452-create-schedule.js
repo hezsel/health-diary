@@ -1,5 +1,5 @@
 module.exports = {
-  up: (queryInterface, Sequelize) => queryInterface.createTable('Diagnostic', {
+  up: (queryInterface, Sequelize) => queryInterface.createTable('Schedule', {
     id: {
       type: Sequelize.STRING,
       primaryKey: true,
@@ -7,9 +7,17 @@ module.exports = {
     },
     diagnostic_code_id: {
       type: Sequelize.STRING,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: 'DiagnosticCode',
+        key: 'id',
+      },
+    },
+    immunization_code_id: {
+      type: Sequelize.STRING,
+      allowNull: true,
+      references: {
+        model: 'ImmunizationCode',
         key: 'id',
       },
     },
@@ -21,15 +29,19 @@ module.exports = {
         key: 'id',
       },
     },
-    date: {
-      type: Sequelize.DATEONLY,
+    name: {
+      type: Sequelize.STRING,
       allowNull: false,
     },
-    result: {
-      type: Sequelize.STRING,
+    date: {
+      type: Sequelize.DATE,
+      allowNull: false,
+    },
+    time: {
+      type: Sequelize.TIME,
       allowNull: true,
     },
-    performer: {
+    location: {
       type: Sequelize.STRING,
       allowNull: true,
     },
@@ -50,6 +62,6 @@ module.exports = {
     },
   }),
   down: (queryInterface) => {
-    queryInterface.dropTable('Diagnostic')
+    queryInterface.dropTable('Schedule')
   },
 }

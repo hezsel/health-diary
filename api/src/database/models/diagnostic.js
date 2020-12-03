@@ -1,4 +1,4 @@
-const { STRING, DATE } = require('sequelize')
+const { STRING, DATEONLY } = require('sequelize')
 const generateId = require('../utils/generateId')
 
 module.exports = {
@@ -27,7 +27,7 @@ module.exports = {
         },
       },
       date: {
-        type: DATE,
+        type: DATEONLY,
         allowNull: false,
       },
       result: {

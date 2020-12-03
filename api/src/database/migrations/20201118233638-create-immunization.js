@@ -22,7 +22,7 @@ module.exports = {
       },
     },
     date: {
-      type: Sequelize.DATE,
+      type: Sequelize.DATEONLY,
       allowNull: false,
     },
     location: {
@@ -34,7 +34,7 @@ module.exports = {
       allowNull: true,
     },
     expiration_date: {
-      type: Sequelize.DATE,
+      type: Sequelize.DATEONLY,
       allowNull: true,
     },
     dose_quantity: {
