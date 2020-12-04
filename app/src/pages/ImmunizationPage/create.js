@@ -40,6 +40,19 @@ const getFormatedDate = (isoDateString) => {
   return new Date(new Date(isoDateString).getTime() + now.getTimezoneOffset() * 60000)
 }
 
+const areRequiredFieldsOk = (item) => {
+  if (!item.immunizationCodeId) {
+    alert('Campo "Vacina" é obrigatório.')
+    return false
+  }
+  if (!item.date) {
+    alert('Campo "Data" é obrigatório.')
+    return false
+  }
+
+  return true
+}
+
 const Create = ({
   modalStatus,
   updateList,
@@ -109,6 +122,7 @@ const Create = ({
       doseQuantity: doseQuantity || null,
       observation: observation || null,
     }
+    if (!areRequiredFieldsOk(data)) return
     if (editing.id) {
       updateItem(editing.id, data)
       return
