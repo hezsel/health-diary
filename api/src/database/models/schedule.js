@@ -1,20 +1,28 @@
-const { STRING, DATEONLY } = require('sequelize')
+const { STRING, DATEONLY, TIME } = require('sequelize')
 const generateId = require('../utils/generateId')
 
 module.exports = {
   create(sequelize) {
-    const Immunization = sequelize.define('Immunization', {
+    const Schedule = sequelize.define('Schedule', {
       id: {
         type: STRING,
         primaryKey: true,
         allowNull: false,
-        defaultValue: generateId('immu'),
+        defaultValue: generateId('sche'),
       },
       immunizationCodeId: {
         type: STRING,
-        allowNull: false,
+        allowNull: true,
         references: {
           model: 'ImmunizationCode',
+          key: 'id',
+        },
+      },
+      diagnosticCodeId: {
+        type: STRING,
+        allowNull: true,
+        references: {
+          model: 'DiagnosticCode',
           key: 'id',
         },
       },
@@ -26,23 +34,19 @@ module.exports = {
           key: 'id',
         },
       },
+      name: {
+        type: STRING,
+        allowNull: false,
+      },
       date: {
         type: DATEONLY,
         allowNull: false,
       },
+      time: {
+        type: TIME,
+        allowNull: true,
+      },
       location: {
-        type: STRING,
-        allowNull: true,
-      },
-      lotNumber: {
-        type: STRING,
-        allowNull: true,
-      },
-      expirationDate: {
-        type: DATEONLY,
-        allowNull: true,
-      },
-      doseQuantity: {
         type: STRING,
         allowNull: true,
       },
@@ -58,29 +62,33 @@ module.exports = {
           return {
             id: this.get('id'),
             immunizationCodeId: this.get('immunizationCodeId'),
+            diagnosticCodeId: this.get('diagnosticCodeId'),
             userId: this.get('userId'),
             date: this.get('date'),
+            time: this.get('time'),
             location: this.get('location'),
-            lotNumber: this.get('lotNumber'),
-            expirationDate: this.get('expirationDate'),
-            doseQuantity: this.get('doseQuantity'),
             observation: this.get('observation'),
           }
         },
       },
     })
 
-    return Immunization
+    return Schedule
   },
-  associate(Immunization, {
+  associate(Schedule, {
     ImmunizationCode,
+    DiagnosticCode,
     User,
   }) {
-    Immunization.belongsTo(ImmunizationCode, {
+    Schedule.belongsTo(ImmunizationCode, {
       foreignKey: 'immunizationCodeId',
       as: 'immunizationCode',
     })
-    Immunization.belongsTo(User, {
+    Schedule.belongsTo(DiagnosticCode, {
+      foreignKey: 'immunizationCodeId',
+      as: 'diagnosticCode',
+    })
+    Schedule.belongsTo(User, {
       foreignKey: 'userId',
       as: 'user',
     })

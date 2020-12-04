@@ -4,6 +4,7 @@ const Immunization = require('./immunization')
 const ImmunizationCode = require('./immunizationCode')
 const Diagnostic = require('./diagnostic')
 const DiagnosticCode = require('./diagnosticCode')
+const Schedule = require('./schedule')
 
 module.exports = {
   User,
@@ -12,4 +13,5 @@ module.exports = {
   ImmunizationCode,
   Diagnostic,
   DiagnosticCode,
+  Schedule,
 }

@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import NavBar from '../../components/navBar'
 import styled from 'styled-components'
 import ListItems from './listItems'
-import CreateImmunization from './create'
-import FilterImmunization from './filter'
+import CreateDiagnostic from './create'
+import FilterDiagnostic from './filter'
 import { useHistory } from "react-router-dom"
 import { isLoggedIn } from '../../services/user'
 import api from '../../services'
@@ -25,19 +25,20 @@ const Page = styled.div`
   }  
 `
 
-const ImmunizationPage = () => {
+const DiagnosticPage = () => {
   const history = useHistory()
   isLoggedIn(history)
 
   const [createModalStatus, setCreateModalStatus] = useState(false)
   const [filterModalStatus, setFilterModalStatus] = useState(false)
-  const [immunizationList, setImmunizationList] = useState([])
+  const [diagnosticList, setDiagnosticList] = useState([])
   const [editing, setEditing] = useState({})
 
   const updateList = async (filters = {}) => {
     setCreateModalStatus(false)
     setFilterModalStatus(false)
-    setImmunizationList(await api.immunization.list(filters))
+    const diagnostics = await api.diagnostic.list(filters)
+    setDiagnosticList(diagnostics)
   }
 
   let modalKey = new Date().valueOf()
@@ -56,7 +57,7 @@ const ImmunizationPage = () => {
     <Page>
       <Grid container>
         <Grid item xs={12} sm={6}>
-          <h1>Suas Vacinas:</h1>
+          <h1>Seus Exames:</h1>
         </Grid>
         <Grid
           container
@@ -89,20 +90,20 @@ const ImmunizationPage = () => {
         </Grid>
         <Grid item xs={12}>
           <ListItems
-            items={immunizationList}
+            items={diagnosticList}
             updateList={updateList}
             setEdit={setEdit}
           />
         </Grid>
       </Grid>
-      <CreateImmunization
+      <CreateDiagnostic
         key={modalKey}
         modalStatus={createModalStatus}
         setModalStatus={setCreateModalStatus}
         updateList={updateList}
         editing={editing}
       />
-      <FilterImmunization
+      <FilterDiagnostic
         key={modalKey + 1}
         modalStatus={filterModalStatus}
         setModalStatus={setFilterModalStatus}
@@ -112,4 +113,4 @@ const ImmunizationPage = () => {
   </>)
 }
  
-export default ImmunizationPage
+export default DiagnosticPage

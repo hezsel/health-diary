@@ -5,6 +5,7 @@ const immunization = require('./immunization')
 const immunizationCode = require('./immunizationCode')
 const diagnostic = require('./diagnostic')
 const diagnosticCode = require('./diagnosticCode')
+const schedule = require('./schedule')
 
 const routes = (app) => {
   app.use('/example', example)
@@ -14,6 +15,7 @@ const routes = (app) => {
   app.use('/immunization_code', immunizationCode)
   app.use('/diagnostic', diagnostic)
   app.use('/diagnostic_code', diagnosticCode)
+  app.use('/schedule', schedule)
 }
 
 module.exports = routes

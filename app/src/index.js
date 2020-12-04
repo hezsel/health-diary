@@ -10,6 +10,7 @@ import Home from './pages/Home'
 import Login from './pages/Login'
 import SignUp from './pages/SignUp'
 import ImmunizationPage from './pages/ImmunizationPage'
+import DiagnosticPage from './pages/DiagnosticPage'
 
 const theme = createMuiTheme({
   palette: {
@@ -31,6 +32,7 @@ ReactDOM.render(
         <Route path="/Register" component={SignUp} />
         <Route path="/Login" component={Login} />
         <Route path="/Immunization" component={ImmunizationPage} />
+        <Route path="/Diagnostic" component={DiagnosticPage} />
       </Switch>
     </BrowserRouter>
   </ThemeProvider>,

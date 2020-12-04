@@ -15,7 +15,6 @@ import {
 import DateFnsUtils from '@date-io/date-fns'
 import {
   Room as RoomIcon,
-  ViewHeadline as ViewHeadlineIcon,
   Close as CloseIcon,
 } from '@material-ui/icons'
 import { head, pipe, split } from 'ramda'
@@ -41,8 +40,8 @@ const getFormatedDate = (isoDateString) => {
 }
 
 const areRequiredFieldsOk = (item) => {
-  if (!item.immunizationCodeId) {
-    alert('Campo "Vacina" é obrigatório.')
+  if (!item.diagnosticCodeId) {
+    alert('Campo "Exame" é obrigatório.')
     return false
   }
   if (!item.date) {
@@ -59,28 +58,24 @@ const Create = ({
   setModalStatus,
   editing,
 }) => {
-  const [immunizationCodeId, setImmunizationCodeId] = useState(null)
+  const [diagnosticCodeId, setDiagnosticCodeId] = useState(null)
   const [date, setDate] = useState(new Date())
-  const [expirationDate, setExpirationDate] = useState(null)
-  const [location, setLocation] = useState(null)
-  const [lotNumber, setLotNumber] = useState(null)
-  const [doseQuantity, setDoseQuantity] = useState(null)
+  const [performer, setPerformer] = useState(null)
+  const [result, setResult] = useState(null)
   const [observation, setObservation] = useState(null)
 
-  const [immunizationCodeList, setImmunizationCodeList] = useState([])
+  const [diagnosticCodeList, setDiagnosticCodeList] = useState([])
 
   const updateCodeList = async (filters = {}) => {
-    setImmunizationCodeList(await api.immunizationCode.list(filters))
+    setDiagnosticCodeList(await api.diagnosticCode.list(filters))
   }
   useEffect(() => {
     updateCodeList()
     if (editing.id) {
-      setImmunizationCodeId(editing.immunizationCode.id)
+      setDiagnosticCodeId(editing.diagnosticCode.id)
       setDate(getFormatedDate(editing.date))
-      setExpirationDate(getFormatedDate(editing.expirationDate))
-      setLocation(editing.location)
-      setLotNumber(editing.lotNumber)
-      setDoseQuantity(editing.doseQuantity)
+      setPerformer(editing.performer)
+      setResult(editing.result)
       setObservation(editing.observation)
     }
   }, [editing])
@@ -91,35 +86,33 @@ const Create = ({
   }
 
   const createItem = (data) => {
-    api.immunization.create(data)
+    api.diagnostic.create(data)
       .then(() => {
-        alert('Vacina criada com sucesso!')
+        alert('Exame criado com sucesso!')
         updateList()
       })
       .catch((err) => {
-        alert('Houve um erro criando a vacina.')
+        alert('Houve um erro criando o exame.')
       })
   }
 
   const updateItem = (id, data) => {
-    api.immunization.update(id, data)
+    api.diagnostic.update(id, data)
       .then(() => {
-        alert('Vacina editada com sucesso!')
+        alert('Exame editado com sucesso!')
         updateList()
       })
       .catch((err) => {
-        alert('Houve um erro editando a vacina.')
+        alert('Houve um erro editando o exame.')
       })
   }
 
   const saveItem = () => {
     const data = {
-      immunizationCodeId,
+      diagnosticCodeId,
       date: formatDate(date),
-      expirationDate: formatDate(expirationDate),
-      location: location || null,
-      lotNumber: lotNumber || null,
-      doseQuantity: doseQuantity || null,
+      performer: performer || null,
+      result: result || null,
       observation: observation || null,
     }
     if (!areRequiredFieldsOk(data)) return
@@ -138,7 +131,7 @@ const Create = ({
     <CreatePage>
       <Grid container>
         <Grid item xs={10}>
-          <h2 style={{ marginLeft: 20 }}>{editing.id ? 'Editar' : 'Nova'} Vacina</h2>
+          <h2 style={{ marginLeft: 20 }}>{editing.id ? 'Editar' : 'Novo'} Exame</h2>
         </Grid>
         <Grid
           container
@@ -153,29 +146,29 @@ const Create = ({
             onClick={() => setModalStatus(false)}
           />
         </Grid>
-        <Grid item xs={12} md={6} style={{ paddingLeft: 10 }}>
+        <Grid item xs={12} md={4} style={{ paddingLeft: 10 }}>
           <Grid item xs={12}>
             <Autocomplete
-              id="immunization-auto-complete"
-              options={immunizationCodeList}
+              id="diagnostic-auto-complete"
+              options={diagnosticCodeList}
               getOptionLabel={(option) => option.name}
-              defaultValue={editing ? editing.immunizationCode : []}
+              defaultValue={editing ? editing.diagnosticCode : []}
               getOptionSelected={(option, selected = {}) => option.id === selected.id}
-              onChange={(event, value) => setImmunizationCodeId(value ? value.id : null)}
+              onChange={(event, value) => setDiagnosticCodeId(value ? value.id : null)}
               onInputChange={(event, name) => searchCode(name)}
               renderInput={(params) => <TextField
                 {...params}
                 fullWidth
-                label="Vacina*"
+                label="Exame*"
                 variant="filled"
-                value={immunizationCodeId}
+                value={diagnosticCodeId}
               />}
             />
           </Grid>
-          <Grid item xs={12} style={{ marginTop: 3 }}>
+          <Grid item xs={12} style={{ marginTop: 4 }}>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
               <KeyboardDatePicker
-                id="immunization-date"
+                id="diagnostic-date"
                 fullWidth
                 disableToolbar
                 inputVariant={'filled'}
@@ -191,33 +184,14 @@ const Create = ({
               />
             </MuiPickersUtilsProvider>
           </Grid>
-          <Grid item xs={12} style={{ marginTop: -4 }}>
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <KeyboardDatePicker
-                id="immunization-expire-date"
-                fullWidth
-                disableToolbar
-                inputVariant={'filled'}
-                variant="inline"
-                format="dd/MM/yyyy"
-                margin="normal"
-                label="Validade"
-                value={expirationDate}
-                onChange={setExpirationDate}
-                KeyboardButtonProps={{
-                  'aria-label': 'change date',
-                }}
-              />
-            </MuiPickersUtilsProvider>
-          </Grid>
-          <Grid item xs={12} style={{ marginTop: 9, marginBottom: 16 }}>
+          <Grid item xs={12} style={{ marginTop: 12, marginBottom: 16 }}>
             <TextField
-              id="immunization-location"
+              id="diagnostic-performer"
               fullWidth
-              label="Localização"
+              label="Laboratório"
               variant="filled"
-              value={location || ''}
-              onChange={(e) => setLocation(e.target.value)}
+              value={performer || ''}
+              onChange={(e) => setPerformer(e.target.value)}
               InputProps={{
                 endAdornment: <InputAdornment position="end">
                   <RoomIcon style={{ color: 'dimgray', marginRight: 11 }} />
@@ -226,10 +200,25 @@ const Create = ({
             />
           </Grid>
         </Grid>
-        <Grid item container xs={12} md={6} style={{ paddingLeft: 10, marginBottom: 16 }}>
+        <Grid item container xs={12} md={4} style={{ paddingLeft: 10, marginBottom: 16 }}>
           <Grid item xs={12}>
             <TextField
-              id="immunization-observation"
+              id="diagnostic-result"
+              fullWidth
+              multiline
+              rows={9}
+              rowsMax={9}
+              value={result || ''}
+              onChange={(e) => setResult(e.target.value)}
+              label="Resultados"
+              variant="filled"
+            />
+          </Grid>
+        </Grid>
+        <Grid item container xs={12} md={4} style={{ paddingLeft: 10, marginBottom: 16 }}>
+          <Grid item xs={12}>
+            <TextField
+              id="diagnostic-observation"
               fullWidth
               multiline
               rows={9}
@@ -238,36 +227,6 @@ const Create = ({
               onChange={(e) => setObservation(e.target.value)}
               label="Observações..."
               variant="filled"
-            />
-          </Grid>
-          <Grid item xs={6} style={{ marginTop: 16 }}>
-            <TextField
-              id="immunization-dose-quantity"
-              fullWidth
-              label="Dose"
-              variant="filled"
-              value={doseQuantity || ''}
-              onChange={(e) => setDoseQuantity(e.target.value)}
-              InputProps={{
-                endAdornment: <InputAdornment position="end">
-                  <ViewHeadlineIcon style={{ color: 'dimgray', marginRight: 11 }} />
-                </InputAdornment>
-              }}
-            />
-          </Grid>
-          <Grid item xs={6} style={{ marginTop: 16, paddingLeft: 10 }}>
-            <TextField
-              id="immunization-lot-number"
-              fullWidth
-              label="Lote"
-              variant="filled"
-              value={lotNumber || ''}
-              onChange={(e) => setLotNumber(e.target.value)}
-              InputProps={{
-                endAdornment: <InputAdornment position="end">
-                  <ViewHeadlineIcon style={{ color: 'dimgray', marginRight: 11 }} />
-                </InputAdornment>
-              }}
             />
           </Grid>
         </Grid>
