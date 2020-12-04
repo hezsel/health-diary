@@ -37,8 +37,8 @@ const Content = ({ item }) => {
       color: theme.palette.text.secondary,
       whiteSpace: 'pre-line',
     },
-    observation: {
-      minHeight: 80,
+    multilinePaper: {
+      minHeight: 140,
     },
     attachment: {
       cursor: 'pointer',
@@ -48,7 +48,7 @@ const Content = ({ item }) => {
 
   return (<div className={classes.root}>
     <Grid container spacing={3}>
-      <Grid item container spacing={1} xs={12} md={6}>
+      <Grid item container spacing={1} xs={12} md={4}>
         <Grid item xs={12}>
           <Paper className={classes.paper}>
             <strong>Data:</strong> {formatDate(item.date)}
@@ -56,29 +56,7 @@ const Content = ({ item }) => {
         </Grid>
         <Grid item xs={12}>
           <Paper className={classes.paper}>
-            <strong>Local:</strong> {item.location}
-          </Paper>
-        </Grid>
-        <Grid item xs={12}>
-          <Paper className={classes.paper}>
-            <strong>Dose:</strong> {item.doseQuantity}
-          </Paper>
-        </Grid>
-        <Grid item xs={12}>
-          <Paper className={classes.paper}>
-            <strong>Lote:</strong> {item.lotNumber}
-          </Paper>
-        </Grid>
-      </Grid>
-      <Grid item container spacing={1} xs={12} md={6}>
-        <Grid item xs={12}>
-          <Paper className={classes.paper}>
-            <strong>Validade:</strong> {formatDate(item.expirationDate)}
-          </Paper>
-        </Grid>
-        <Grid item xs={12}>
-          <Paper className={[classes.paper, classes.observation].join(' ')}>
-            <strong>Observações:</strong><br/>{item.observation}
+            <strong>Laboratório:</strong> {item.performer}
           </Paper>
         </Grid>
         <Grid item xs={12}>
@@ -87,6 +65,20 @@ const Content = ({ item }) => {
               fontSize="small"
               color={item.attachment ? "secondary" : "disabled"}
             /><strong>{item.attachment ? item.attachment.name : "Sem anexo"}</strong>
+          </Paper>
+        </Grid>
+      </Grid>
+      <Grid item container spacing={1} xs={12} md={4}>
+        <Grid item xs={12}>
+          <Paper className={[classes.paper, classes.multilinePaper].join(' ')}>
+            <strong>Resultados:</strong><br/>{item.result}
+          </Paper>
+        </Grid>
+      </Grid>
+      <Grid item container spacing={1} xs={12} md={4}>
+        <Grid item xs={12}>
+          <Paper className={[classes.paper, classes.multilinePaper].join(' ')}>
+            <strong>Observações:</strong><br/>{item.observation}
           </Paper>
         </Grid>
       </Grid>
@@ -123,7 +115,7 @@ const Row = ({
           scope="row"
           onClick={() => setOpen(!open)}
         >
-          {row.immunizationCode.name}
+          {row.diagnosticCode.name}
         </TableCell>
         <TableCell
           className={classes.header}
