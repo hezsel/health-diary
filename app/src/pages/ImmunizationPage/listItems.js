@@ -56,29 +56,29 @@ const Content = ({ item }) => {
         </Grid>
         <Grid item xs={12}>
           <Paper className={classes.paper}>
-            <strong>Local:</strong> {item.location}
+            <strong>Local:</strong> {item.location || '-'}
           </Paper>
         </Grid>
         <Grid item xs={12}>
           <Paper className={classes.paper}>
-            <strong>Dose:</strong> {item.doseQuantity}
+            <strong>Dose:</strong> {item.doseQuantity || '-'}
           </Paper>
         </Grid>
         <Grid item xs={12}>
           <Paper className={classes.paper}>
-            <strong>Lote:</strong> {item.lotNumber}
+            <strong>Lote:</strong> {item.lotNumber || '-'}
           </Paper>
         </Grid>
       </Grid>
       <Grid item container spacing={1} xs={12} md={6}>
         <Grid item xs={12}>
           <Paper className={classes.paper}>
-            <strong>Validade:</strong> {formatDate(item.expirationDate)}
+            <strong>Validade:</strong> {formatDate(item.expirationDate) || '-'}
           </Paper>
         </Grid>
         <Grid item xs={12}>
           <Paper className={[classes.paper, classes.observation].join(' ')}>
-            <strong>Observações:</strong><br/>{item.observation}
+            <strong>Observações:</strong><br/>{item.observation || '-'}
           </Paper>
         </Grid>
         <Grid item xs={12}>
@@ -112,7 +112,6 @@ const Row = ({
       cursor: 'pointer',
     },
   }))()
-
   const [open, setOpen] = React.useState(false)
 
   return (

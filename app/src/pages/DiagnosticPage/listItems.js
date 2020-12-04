@@ -56,7 +56,7 @@ const Content = ({ item }) => {
         </Grid>
         <Grid item xs={12}>
           <Paper className={classes.paper}>
-            <strong>Laboratório:</strong> {item.performer}
+            <strong>Laboratório:</strong> {item.performer || '-'}
           </Paper>
         </Grid>
         <Grid item xs={12}>
@@ -71,14 +71,14 @@ const Content = ({ item }) => {
       <Grid item container spacing={1} xs={12} md={4}>
         <Grid item xs={12}>
           <Paper className={[classes.paper, classes.multilinePaper].join(' ')}>
-            <strong>Resultados:</strong><br/>{item.result}
+            <strong>Resultados:</strong><br/>{item.result || '-'}
           </Paper>
         </Grid>
       </Grid>
       <Grid item container spacing={1} xs={12} md={4}>
         <Grid item xs={12}>
           <Paper className={[classes.paper, classes.multilinePaper].join(' ')}>
-            <strong>Observações:</strong><br/>{item.observation}
+            <strong>Observações:</strong><br/>{item.observation || '-'}
           </Paper>
         </Grid>
       </Grid>
