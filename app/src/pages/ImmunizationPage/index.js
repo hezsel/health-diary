@@ -18,7 +18,7 @@ const Page = styled.div`
   padding-left: 120px;
   padding-right: 60px;
   padding-bottom: 50px;
-  @media (max-width: 500px) {
+  @media (max-width: 600px) {
     padding-top: 5px;
     padding-right: 5px;
     padding-left: 70px;
