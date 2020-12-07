@@ -20,6 +20,7 @@ const list = (userId) => Schedule.findAll({
   where: { userId },
   attributes: [
     'id',
+    'name',
     'date',
     'time',
     'location',
@@ -52,6 +53,10 @@ const list = (userId) => Schedule.findAll({
         'url',
       ],
     },
+  ],
+  order: [
+    ['date', 'ASC'],
+    ['time', 'ASC'],
   ],
 })
 

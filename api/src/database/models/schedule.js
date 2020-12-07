@@ -64,6 +64,7 @@ module.exports = {
             immunizationCodeId: this.get('immunizationCodeId'),
             diagnosticCodeId: this.get('diagnosticCodeId'),
             userId: this.get('userId'),
+            name: this.get('name'),
             date: this.get('date'),
             time: this.get('time'),
             location: this.get('location'),
@@ -85,7 +86,7 @@ module.exports = {
       as: 'immunizationCode',
     })
     Schedule.belongsTo(DiagnosticCode, {
-      foreignKey: 'immunizationCodeId',
+      foreignKey: 'diagnosticCodeId',
       as: 'diagnosticCode',
     })
     Schedule.belongsTo(User, {
