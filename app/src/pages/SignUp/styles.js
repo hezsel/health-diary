@@ -11,6 +11,9 @@ export const Texto = styled.div`
 
 export const Fields = styled.div`
   padding: 30px;
+  @media (max-width: 960px) {
+    padding: 10px;
+  }
 `
 
 export const ActionArea = styled.div`
@@ -29,6 +32,9 @@ export const RightCard = styled.div`
   display: inline-block;
   height: 90vh;
   padding-Left: 20px;
+  @media (max-width: 960px) {
+    display: none;
+  }
 `
 
 export const LeftCard = styled.div`
@@ -37,6 +43,10 @@ export const LeftCard = styled.div`
   height: 90vh;
   display: block;
   float: left;
+  @media (max-width: 960px) {
+    width: 100%;
+    box-Shadow: 4px 3px 15px -4px #636363;
+  }
 `
 
 export const Title = styled.div`
@@ -44,10 +54,14 @@ export const Title = styled.div`
   font-Weight: bold;
   font-Size: 40px;
   display: flex;
-  padding-Top: 100px;
+  padding-Top: 20vh;
+  margin-Bottom: 10vh;
   align-Items: center;
-  height: 5em;
   justify-Content: center;
+  @media (max-width: 960px) {
+    padding-Top: 5vh;
+    margin-Bottom: 5vh;
+  }
 `
 
 export const Page = styled.div`

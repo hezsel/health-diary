@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
-import { Page, CardShadow, LeftCard, Title, Fields, RightCard, ActionArea } from './styles'
-import { Button, TextField } from '@material-ui/core'
+import { Page, CardShadow, LeftCard, Title, Fields, RightCard } from './styles'
+import {
+  Button,
+  TextField,
+  Grid,
+} from '@material-ui/core'
 import doctors from '../../img/doctors.svg'
 import { useHistory } from "react-router-dom"
-import { Link } from 'react-router-dom'
 import api from '../../services'
 
 import { ThemeProvider } from '@material-ui/styles'
@@ -23,7 +26,6 @@ const theme = createMuiTheme({
 
 const Login = () => {
   const history = useHistory()
-
   api.user.isLoggedIn(history)
 
   const [email, setEmail] = useState('')
@@ -67,30 +69,40 @@ const Login = () => {
                 onChange={(event) => setPassword(event.target.value)}
                 onKeyPress={handleKeyPress}
               />
-              <ActionArea>
-                <Button
-                  style={link}
-                  variant='contained'
-                  size='large'
-                  color="secondary"
-                  onClick={() => api.user.login(history, {
-                    email,
-                    password,
-                  })}
-                >
-                  Entrar
-              </Button>
-                <Link style={link} to='/Register'>
+              <Grid
+                container
+                justify="center"
+                spacing={2}
+                style={{ marginTop: '3vh'}}
+              >
+                <Grid container item xs={12} sm={3} md={5} justify="center">
+                  <Button
+                    style={link}
+                    variant='contained'
+                    size='large'
+                    color="secondary"
+                    onClick={() => api.user.login(history, {
+                      email,
+                      password,
+                    })}
+                  >
+                    Entrar
+                  </Button>
+                </Grid>
+                <Grid container item xs={12} sm={3} md={5} justify="center">
                   <Button
                     style={link}
                     variant='contained'
                     size='large'
                     color="primary"
+                    onClick={() => {
+                      history.push('/Register')
+                    }}
                   >
-                    Cadastrar-se
-              </Button>
-                </Link>
-              </ActionArea>
+                    Cadastrar
+                  </Button>
+                </Grid>
+              </Grid>
             </Fields>
           </LeftCard>
           <RightCard>
