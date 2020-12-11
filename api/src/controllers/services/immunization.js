@@ -30,6 +30,7 @@ const list = (userId, filters) => Immunization.findAll({
     'expirationDate',
     'doseQuantity',
     'observation',
+    'fhirInput',
     'updatedAt',
     'createdAt',
   ],
@@ -49,9 +50,34 @@ const list = (userId, filters) => Immunization.findAll({
   ],
 })
 
+const getById = (userId, id) => Immunization.findOne({
+  where: {
+    id, 
+    userId,
+  },
+  include: [
+    {
+      model: ImmunizationCode,
+      as: 'immunizationCode',
+      required: true,
+      attributes: [
+        'id',
+        'name',
+        'code',
+        'version',
+        'url',
+      ],
+    },
+  ]
+}).then((immunization) => ({
+  ...immunization.formatted,
+  immunizationCode: immunization.immunizationCode.formatted
+}))
+
 module.exports = {
   create,
   update,
   remove,
   list,
+  getById,
 }
