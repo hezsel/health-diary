@@ -1,4 +1,4 @@
-const { STRING, DATEONLY } = require('sequelize')
+const { STRING, DATEONLY, JSONB } = require('sequelize')
 const generateId = require('../utils/generateId')
 
 module.exports = {
@@ -42,6 +42,10 @@ module.exports = {
         type: STRING,
         allowNull: true,
       },
+      fhirInput: {
+        type: JSONB,
+        allowNull: true,
+      },
     }, {
       timestamps: true,
       paranoid: true,
@@ -55,6 +59,7 @@ module.exports = {
             result: this.get('result'),
             performer: this.get('performer'),
             observation: this.get('observation'),
+            fhirInput: this.get('fhirInput'),
           }
         },
       },

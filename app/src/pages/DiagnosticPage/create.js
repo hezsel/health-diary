@@ -18,6 +18,7 @@ import {
   Close as CloseIcon,
 } from '@material-ui/icons'
 import { head, pipe, split } from 'ramda'
+import ImportFhir from '../../components/ImportFhir'
 
 import api from '../../services'
 
@@ -237,6 +238,7 @@ const Create = ({
           direction="row"
           justify="flex-end"
         >
+          <ImportFhir updateList={updateList} />
           <Button
             style={{ color: 'white' }}
             variant='contained'

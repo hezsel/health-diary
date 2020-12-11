@@ -28,6 +28,7 @@ const list = (userId, filters) => Diagnostic.findAll({
     'result',
     'performer',
     'observation',
+    'fhirInput',
     'updatedAt',
     'createdAt',
   ],
@@ -47,9 +48,34 @@ const list = (userId, filters) => Diagnostic.findAll({
   ],
 })
 
+const getById = (userId, id) => Diagnostic.findOne({
+  where: {
+    id, 
+    userId,
+  },
+  include: [
+    {
+      model: DiagnosticCode,
+      as: 'diagnosticCode',
+      required: true,
+      attributes: [
+        'id',
+        'name',
+        'code',
+        'version',
+        'url',
+      ],
+    },
+  ]
+}).then((diagnostic) => ({
+  ...diagnostic.formatted,
+  diagnosticCode: diagnostic.diagnosticCode.formatted
+}))
+
 module.exports = {
   create,
   update,
   remove,
   list,
+  getById,
 }

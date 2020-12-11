@@ -17,6 +17,7 @@ import {
 } from '@material-ui/icons'
 import { join, pipe, reverse, split } from 'ramda'
 import { makeStyles } from '@material-ui/core/styles'
+import ExportFhir from '../../components/ExportFhir'
 
 import api from '../../services'
 
@@ -81,6 +82,15 @@ const Content = ({ item }) => {
             <strong>Observações:</strong><br/>{item.observation || '-'}
           </Paper>
         </Grid>
+      </Grid>
+      <Grid
+        item
+        container
+        xs={12}
+        direction="row"
+        justify="flex-end"
+      >
+        <ExportFhir type={'diagnostic'} id={item.id} />
       </Grid>
     </Grid>
   </div>)
