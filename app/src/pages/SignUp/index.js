@@ -56,7 +56,7 @@ const SignUp = () => {
                 variant='outlined'
                 margin='normal'
                 fullWidth
-                label='Email'
+                label='Email / CPF / ID'
                 type='text'
                 onChange={(event) => setEmail(event.target.value)}
               />

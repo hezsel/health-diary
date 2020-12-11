@@ -55,7 +55,7 @@ const Login = () => {
                 margin='normal'
                 variant='outlined'
                 fullWidth
-                label='Email'
+                label='Email / CPF / ID'
                 type='email'
                 onChange={(event) => setEmail(event.target.value)}
                 onKeyPress={handleKeyPress}
