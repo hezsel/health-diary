@@ -3,7 +3,8 @@ app/node_modules/
 api/node_modules/
 
 # Dotenv environment variables file
-**/.env
+app/.env
+api/.env
 
 # Lint output
 api/reports/
