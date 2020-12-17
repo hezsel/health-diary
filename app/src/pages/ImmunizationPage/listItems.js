@@ -13,11 +13,11 @@ import {
 import {
   Delete as DeleteIcon,
   Edit as EditIcon,
-  InsertDriveFile as InsertDriveFileIcon,
 } from '@material-ui/icons'
 import { join, pipe, reverse, split } from 'ramda'
 import { makeStyles } from '@material-ui/core/styles'
 import ExportFhir from '../../components/ExportFhir'
+import Attachment from '../../components/Attachment'
 
 import api from '../../services'
 
@@ -26,7 +26,7 @@ const formatDate = isoDateString => {
   return pipe(split('-'), reverse, join('/'))(isoDateString)
 }
 
-const Content = ({ item }) => {
+const Content = ({ item, updateList }) => {
   const classes = makeStyles((theme) => ({
     root: {
       marginTop: 10,
@@ -40,10 +40,6 @@ const Content = ({ item }) => {
     },
     observation: {
       minHeight: 80,
-    },
-    attachment: {
-      cursor: 'pointer',
-      color: '#11cb5f',
     },
   }))()
 
@@ -83,12 +79,11 @@ const Content = ({ item }) => {
           </Paper>
         </Grid>
         <Grid item xs={12}>
-          <Paper className={[classes.paper, item.attachment ? classes.attachment : ''].join(' ')}>
-            <InsertDriveFileIcon
-              fontSize="small"
-              color={item.attachment ? "secondary" : "disabled"}
-            /><strong>{item.attachment ? item.attachment.name : "Sem anexo"}</strong>
-          </Paper>
+          <Attachment
+            item={item}
+            type={'immunization'}
+            updateList={updateList}
+          />
         </Grid>
       </Grid>
       <Grid
@@ -98,7 +93,11 @@ const Content = ({ item }) => {
         direction="row"
         justify="flex-end"
       >
-        <ExportFhir type={'immunization'} id={item.id} />
+        <ExportFhir
+          type={'immunization'}
+          id={item.id}
+          updateList={updateList}
+        />
       </Grid>
     </Grid>
   </div>)
@@ -108,6 +107,7 @@ const Row = ({
   row,
   setEdit,
   deleteItem,
+  updateList,
 }) => {
   const classes = makeStyles(() => ({
     header: {
@@ -155,7 +155,7 @@ const Row = ({
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={4}>
           <Collapse in={open} timeout="auto" unmountOnExit style={{ marginBottom: 10}}>
-            <Content item={row}/>
+            <Content item={row} updateList={updateList}/>
           </Collapse>
         </TableCell>
       </TableRow>
@@ -198,6 +198,7 @@ const ListItems = ({
               row={row}
               setEdit={setEdit}
               deleteItem={deleteItem}
+              updateList={updateList}
             />
           ))}
         </TableBody>

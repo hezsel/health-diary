@@ -1,4 +1,4 @@
-const { Diagnostic, DiagnosticCode } = require('../../database')
+const { Diagnostic, DiagnosticCode, Attachment } = require('../../database')
 const { generateWhereILike } = require('../../database/utils/filters')
 
 const create = (userId, attributes) => Diagnostic.create({
@@ -43,6 +43,15 @@ const list = (userId, filters) => Diagnostic.findAll({
         'code',
         'version',
         'url',
+      ],
+    },
+    {
+      model: Attachment,
+      as: 'attachments',
+      required: false,
+      attributes: [
+        'id',
+        'originalFileName',
       ],
     },
   ],

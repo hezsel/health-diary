@@ -7,6 +7,7 @@ const diagnostic = require('./diagnostic')
 const diagnosticCode = require('./diagnosticCode')
 const schedule = require('./schedule')
 const fhir = require('./fhir')
+const attachment = require('./attachment')
 
 const routes = (app) => {
   app.use('/example', example)
@@ -18,6 +19,7 @@ const routes = (app) => {
   app.use('/diagnostic_code', diagnosticCode)
   app.use('/schedule', schedule)
   app.use('/fhir', fhir)
+  app.use('/attachment', attachment)
 }
 
 module.exports = routes
