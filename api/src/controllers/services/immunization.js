@@ -1,4 +1,4 @@
-const { Immunization, ImmunizationCode } = require('../../database')
+const { Immunization, ImmunizationCode, Attachment } = require('../../database')
 const { generateWhereILike } = require('../../database/utils/filters')
 
 const create = (userId, attributes) => Immunization.create({
@@ -45,6 +45,15 @@ const list = (userId, filters) => Immunization.findAll({
         'code',
         'version',
         'url',
+      ],
+    },
+    {
+      model: Attachment,
+      as: 'attachments',
+      required: false,
+      attributes: [
+        'id',
+        'originalFileName',
       ],
     },
   ],

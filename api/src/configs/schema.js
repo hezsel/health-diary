@@ -21,4 +21,16 @@ module.exports = Joi.object().keys({
     logging: Joi.boolean().required(),
     url: Joi.string().optional(),
   }).required(),
+  aws: Joi.object().keys({
+    accessKeyId: Joi.string().required(),
+    secretAccessKey: Joi.string().required(),
+    signatureVersion: Joi.string().required(),
+    region: Joi.string().required(),
+    bucketName: Joi.string().required(),
+    signedUrlExpireSeconds: Joi.number().required(),
+    importerAccessKeyId: Joi.string().optional(),
+    importerSecretAccessKey: Joi.string().optional(),
+    importerBucketName: Joi.string().optional(),
+    importerRegion: Joi.string().optional(),
+  }).optional(),
 }).required()

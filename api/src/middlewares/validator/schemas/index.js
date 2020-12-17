@@ -5,6 +5,7 @@ const immunizationCodeSchema = require('./immunizationCode')
 const diagnosticSchema = require('./diagnostic')
 const diagnosticCodeSchema = require('./diagnosticCode')
 const scheduleSchema = require('./schedule')
+const attachmentSchema = require('./attachment')
 
 module.exports = {
   userSchema,
@@ -14,4 +15,5 @@ module.exports = {
   diagnosticSchema,
   diagnosticCodeSchema,
   scheduleSchema,
+  attachmentSchema,
 }

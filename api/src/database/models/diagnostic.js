@@ -70,6 +70,7 @@ module.exports = {
   associate(Diagnostic, {
     DiagnosticCode,
     User,
+    Attachment,
   }) {
     Diagnostic.belongsTo(DiagnosticCode, {
       foreignKey: 'diagnosticCodeId',
@@ -78,6 +79,10 @@ module.exports = {
     Diagnostic.belongsTo(User, {
       foreignKey: 'userId',
       as: 'user',
+    })
+    Diagnostic.hasMany(Attachment, {
+      foreignKey: 'diagnosticId',
+      as: 'attachments',
     })
   },
 }
